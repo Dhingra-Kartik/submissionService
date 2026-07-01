@@ -37,3 +37,4 @@ The thing is that you can access your SERVICE in controller by this.serviceName
 and if you want repo to be in service then you can set your serivice as class { consytrcutor, async pingCheck()}; and your registering this plugin
 fastify.decorate('testService', new TestService());  while registering via plugin
 Fastify is building their own ecosystem, plugins for redis implementation, postgres, mongo, env, own dedicated packages, trying to be independent insteas of 3rd party apps dependenecy
+K6 needs to be 

@@ -2,6 +2,7 @@ const fastify = require('fastify')({ logger: true }); //enable logging, /calling
 const app = require('./app');
 const connectToDb = require('./config/dbConfig');
 const serverConfig = require('./config/serverConfig');
+const EvalautionWorker = require('./workers/EvaluationWorker');
 
 fastify.register(app);
 
@@ -23,6 +24,8 @@ const start = async () => {
     await fastify.listen({ port: serverConfig.PORT });
     console.log('Server running...');
     await connectToDb();
+
+    EvalautionWorker("EvaluationQueue");
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);

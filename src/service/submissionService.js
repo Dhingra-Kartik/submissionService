@@ -15,6 +15,7 @@ class SubmissionService{
     async addSubmission(submissionPayload){
 
         const problemId = submissionPayload.problemId;
+        const userId = submissionPayload.userId;
         const problemAdminResponse = await fetchProblemDetails(problemId);
         if(!problemAdminResponse){console.log("SERVICE: There is some error fetching details")};
         console.log("HEEEEEEEEEEEEEE===============================================================", problemAdminResponse.data.codeStubs);
@@ -38,6 +39,8 @@ class SubmissionService{
             language: submission.language,
             inputCase: problemAdminResponse.data.testCases[0].input,
             outputCase: problemAdminResponse.data.testCases[0].output,
+            userId,
+            submissionId: submission._id
             }
 
         });

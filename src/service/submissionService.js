@@ -46,6 +46,11 @@ class SubmissionService{
         });
     return {queueResponse: response, submission};
 }
+
+    async updateSubmission(job){
+        const updateSubmission= await this.submissionRepository.updateSubmission(job);
+        return updateSubmission;
+    }
 }
 
 module.exports = SubmissionService;

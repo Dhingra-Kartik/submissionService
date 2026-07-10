@@ -1,18 +1,14 @@
 const mongoose = require('mongoose');
-const submissionQueue = require('../queues/submissionQueue');
 
 const submissionSchema = new mongoose.Schema({
     userId: {
         type: String,
         required: [true, "User Id is missing"],
     },
-
     problemId: {
         type: String,
         required: [true, "Problem Id is missing"],
-
     },
-
     code: {
         type: String,
         required: [true, "Code is missing"],
@@ -24,8 +20,8 @@ const submissionSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["Pending", "Success", "RE", "TLE", "MLE", "WA"],
-        default: "Pending",
+        enum: ["PENDING", "SUCCESS", "RE", "TLE", "MLE", "WRONG ANSWER", "COMPLETED"],
+        default: "PENDING",
     }
 });
 

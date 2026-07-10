@@ -1,22 +1,31 @@
 const {Worker} = require('bullmq');
 const redisConnection = require('../config/redisConfig');
 const axios = require('axios');
+const SubmissionService = require('../service/submissionService');
+const SubmissionRepository = require('../repository/submissionRepository');
+const submissionService = new SubmissionService(new SubmissionRepository());
+
+
 
 function EvalautionWorker(queue){
     new Worker('EvaluationQueue', async job => {
         if(job.name === 'EvaluationJob'){
-            
-
-        const response = await axios.post('http://localhost:3001/sendPayload', {
+            const response = await axios.post('http://localhost:3001/sendPayload', {
             userId: job.data.userId,
             payload: job.data
         })
-            console.log("JOBDATA", job.data);
+        console.log("JOBDATA", job.data);
+
+        const result = await submissionService.updateSubmission(job);
+            const status = job.data.reponse.status;
+            const id = job.data.submissionId;
         }
     }, {
         connection: redisConnection
     });
 }
+
+
 
 
 module.exports = EvalautionWorker;

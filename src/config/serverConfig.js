@@ -9,5 +9,6 @@ module.exports = {
   ATLAS_DB_URL : process.env.ATLAS_DB_URL,
     LOG_DB_URL : process.env.LOG_DB_URL,
     OUR_NODE_ENV : process.env.OUR_NODE_ENV,
-    PROBLEM_ADMIN_SERVICE : process.env.PROBLEM_ADMIN_SERVICE
+    PROBLEM_ADMIN_SERVICE : process.env.PROBLEM_ADMIN_SERVICE,
+    SOCKETSERVICE : process.env.SOCKETSERVICE
 }

@@ -10,20 +10,28 @@ class SubmissionRepository{
         const response = await this.submissionModel.create(submission);
         return response;
     }
-    async updateSubmission(job){
-            await Submission.updateOne(
-                {_id: job.data.submissionId},
-                {$set: {
-                    status: job.data.response.status
-                }
-                },
-                {
-                    upsert: true
-                }
-            );
-            const status = job.data.reponse.status;
-            const id = job.data.submissionId;
-        }
+
+
+  async updateSubmission(job) {
+  const responses = job.data.response; // this is the array of ExecutionResponse objects
+
+  let finalStatus = "SUCCESS";
+
+  // If any test case failed or errored
+  if (responses.some(r => r.status === "ERROR")) {
+    finalStatus = "ERROR";
+  } else if (responses.some(r => r.status !== "SUCCESS")) {
+    finalStatus = "WRONG ANSWER";
+  }
+
+  await Submission.updateOne(
+    { _id: job.data.submissionId },
+    { $set: { status: finalStatus } },
+    { upsert: true }
+  );
+
+  console.log(`Submission ${job.data.submissionId} updated with status: ${finalStatus}`);
+    }
     };
 
 module.exports = SubmissionRepository;

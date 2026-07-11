@@ -37,13 +37,16 @@ class SubmissionService{
             [submission._id]:{
             code: submission.code,
             language: submission.language,
-            inputCase: problemAdminResponse.data.testCases[0].input,
-            outputCase: problemAdminResponse.data.testCases[0].output,
+            testCases: problemAdminResponse.data.testCases.map(tc => ({
+            input: tc.input,
+            output: tc.output
+            })),
             userId,
             submissionId: submission._id
             }
 
         });
+        
     return {queueResponse: response, submission};
 }
 

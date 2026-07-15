@@ -12,10 +12,10 @@ class SubmissionService{
     async pingCheck(){
     return 'heeeeey';
 }
-    async addSubmission(submissionPayload){
+    async addSubmission(submissionPayload, userId){
 
         const problemId = submissionPayload.problemId;
-        const userId = submissionPayload.userId;
+        // const userId = submissionPayload.userId;
         const problemAdminResponse = await fetchProblemDetails(problemId);
         if(!problemAdminResponse){console.log("SERVICE: There is some error fetching details")};
         console.log("HEEEEEEEEEEEEEE===============================================================", problemAdminResponse.data.codeStubs);
@@ -23,7 +23,8 @@ class SubmissionService{
         const languageCodeStub = problemAdminResponse.data.codeStubs.find(codeStub => codeStub.language.toLowerCase() === submissionPayload.language.toLowerCase());
         console.log("Woh mil gaya !!! acc to language dil gaya: ", languageCodeStub);
 
-        submissionPayload.code = languageCodeStub.startSnippet + "\n\n" + submissionPayload.code + "\n\n" + languageCodeStub.endSnippet;
+        submissionPayload.code = submissionPayload.code;
+        // submissionPayload.code = languageCodeStub.startSnippet + "\n\n" + submissionPayload.code + "\n\n" + languageCodeStub.endSnippet;
         console.log(submissionPayload.endSnippet);
         console.log("FINALLY: ", submissionPayload.code);
       

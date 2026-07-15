@@ -12,7 +12,8 @@ console.log("FROM CONTROLLER: ", this.testService); //every controller => has an
 
 async function createSubmission(req, res){
     console.log(req.body);
-    const response = await this.submissionService.addSubmission(req.body);
+    console.log(req.user);
+    const response = await this.submissionService.addSubmission(req.body, req.user.id);
     return res.status(201).send({
         error: {},
         data: response,
